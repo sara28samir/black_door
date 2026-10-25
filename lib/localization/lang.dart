@@ -1,5 +1,5 @@
 // ============================================================
-// BLACK DOOR — Language Manager
+// BLACK DOOR — Language Manager (lang.dart)
 // ============================================================
 
 class AppLang {
@@ -22,7 +22,7 @@ class AppLang {
       'Ultra-Secure HD Calling': 'Ultra-Secure HD Calling',
       'Encrypted voice & video without call log traces':
           'Encrypted voice & video without call log traces',
-      'Enter Black Door': 'Enter Black Door',
+      'Enter Black Door': 'Enter BLACK DOOR',
       'Invitational & verified cipher access only':
           'Invitational & verified cipher access only',
 
@@ -84,6 +84,15 @@ class AppLang {
       'Privacy is not a luxury, it is a right.':
           'Privacy is not a luxury, it is a right.',
 
+      // ============ STORY PAGE ============
+      'Stories & Channels': 'Stories & Channels',
+      'Status': 'Status',
+      'Channels': 'Channels',
+      'Create Channel': 'Create Channel',
+      'Story Privacy': 'Story Privacy',
+      'Story Notifications': 'Story Notifications',
+      'All Countries': 'All Countries',
+
       // ============ CHAT PAGE ============
       'Search conversations or handles': 'Search conversations or handles',
       'Your Story': 'Your Story',
@@ -96,6 +105,21 @@ class AppLang {
       'Favorites': 'Favorites',
       'Settings': 'Settings',
       'Coming Soon': 'Coming Soon',
+
+      // ============ CALLS PAGE ============
+      'Recent': 'Recent',
+      'Call': 'Call',
+      'Schedule': 'Schedule',
+      'Keypad': 'Keypad',
+      'Clear call log': 'Clear call log',
+      'Scheduled calls': 'Scheduled calls',
+      'Call settings': 'Call settings',
+      'Today, 5:53 PM': 'Today, 5:53 PM',
+      'Yesterday, 6:37 PM': 'Yesterday, 6:37 PM',
+      'Oct 16, 10:07 PM': 'Oct 16, 10:07 PM',
+      'Oct 16, 9:43 PM': 'Oct 16, 9:43 PM',
+      'Oct 16, 9:17 PM': 'Oct 16, 9:17 PM',
+      'Oct 16, 9:11 PM': 'Oct 16, 9:11 PM',
 
       // ============ COUNTRIES ============
       'Bahrain': 'Bahrain',
@@ -142,7 +166,6 @@ class AppLang {
       'Spain': 'Spain',
       'Russia': 'Russia',
     },
-
     'ar': {
       // ============ WELCOME PAGE ============
       'ENCRYPTED NETWORK': 'شبكة مشفرة',
@@ -156,7 +179,7 @@ class AppLang {
       'Ultra-Secure HD Calling': 'مكالمات عالية الدقة فائقة الأمان',
       'Encrypted voice & video without call log traces':
           'صوت وفيديو مشفر بدون سجلات مكالمات',
-      'Enter Black Door': 'دخول بلاك دور',
+      'Enter Black Door': 'دخول BLACK DOOR',
       'Invitational & verified cipher access only':
           'دخول بدعوة ورمز تحقق فقط',
 
@@ -218,6 +241,15 @@ class AppLang {
       'Privacy is not a luxury, it is a right.':
           'الخصوصية ليست رفاهية، بل حق.',
 
+      // ============ STORY PAGE ============
+      'Stories & Channels': 'الاستوري والقنوات',
+      'Status': 'الحالات',
+      'Channels': 'القنوات',
+      'Create Channel': 'إنشاء قناة',
+      'Story Privacy': 'خصوصية الحالة',
+      'Story Notifications': 'إشعارات الاستوري',
+      'All Countries': 'كل البلاد',
+
       // ============ CHAT PAGE ============
       'Search conversations or handles': 'ابحث في المحادثات أو المعرفات',
       'Your Story': 'قصتك',
@@ -227,9 +259,24 @@ class AppLang {
       'Profile': 'الملف الشخصي',
       'New Group': 'مجموعة جديدة',
       'Mass Messages': 'رسائل جماعية',
-      'Favorites': 'المميزة',
+      'Favorites': 'المفضلة',
       'Settings': 'الإعدادات',
       'Coming Soon': 'قريباً',
+
+      // ============ CALLS PAGE ============
+      'Recent': 'الحديثة',
+      'Call': 'مكالمة',
+      'Schedule': 'جدولة',
+      'Keypad': 'لوحة الأرقام',
+      'Clear call log': 'مسح سجل المكالمات',
+      'Scheduled calls': 'مكالمات مجدولة',
+      'Call settings': 'إعدادات المكالمات',
+      'Today, 5:53 PM': 'اليوم، ٥:٥٣ م',
+      'Yesterday, 6:37 PM': 'أمس، ٦:٣٧ م',
+      'Oct 16, 10:07 PM': '١٦ أكتوبر، ١٠:٠٧ م',
+      'Oct 16, 9:43 PM': '١٦ أكتوبر، ٩:٤٣ م',
+      'Oct 16, 9:17 PM': '١٦ أكتوبر، ٩:١٧ م',
+      'Oct 16, 9:11 PM': '١٦ أكتوبر، ٩:١١ م',
 
       // ============ COUNTRIES ============
       'Bahrain': 'البحرين',
@@ -237,7 +284,7 @@ class AppLang {
       'UAE': 'الإمارات',
       'Kuwait': 'الكويت',
       'Qatar': 'قطر',
-      'Oman': 'عُمان',
+      'Oman': 'عمان',
       'Egypt': 'مصر',
       'Jordan': 'الأردن',
       'Lebanon': 'لبنان',
@@ -296,6 +343,7 @@ class AppLang {
     if (!isArabic) return input;
     const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+    
     String result = input;
     for (int i = 0; i < english.length; i++) {
       result = result.replaceAll(english[i], arabic[i]);

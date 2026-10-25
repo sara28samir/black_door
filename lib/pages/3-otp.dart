@@ -3,7 +3,7 @@ import 'dart:async';
 import '../localization/lang.dart';
 
 // ============================================================
-// BLACK DOOR — OTP Page (3-otp.dart)
+// BLACK DOOR â€” OTP Page (3-otp.dart)
 // ============================================================
 
 class OtpPage extends StatefulWidget {
@@ -49,6 +49,7 @@ class _OtpPageState extends State<OtpPage> {
     if (isCodeComplete) Navigator.pushNamed(context, '/dis');
   }
 
+  // -------- KEYPAD ACTIONS --------
   void _addDigit(String digit) {
     setState(() {
       for (int k = 0; k < 6; k++) {
@@ -107,20 +108,26 @@ class _OtpPageState extends State<OtpPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 6),
                     _buildBackButton(),
-                    const SizedBox(height: 20),
-                    _buildDoorIcon(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
+                    _buildDoorIcon(), // اللوجو بدون إطار
+                    const SizedBox(height: 12),
                     _buildTitle(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 12),
                     _buildCodeBoxes(),
-                    const SizedBox(height: 20),
-                    _buildVerifyButton(),
-                    const SizedBox(height: 20),
-                    // ✅ خلي لوحة الأرقام تاخد باقي المساحة تحت
-                    Expanded(child: _buildKeypad()),
+                    const SizedBox(height: 12),
+                    
+                    // لوحة الأرقام (الكيبورد) بتاخد المساحة اللي في النص
+                    Expanded(child: _buildKeypad()), 
+                    
+                    const SizedBox(height: 12),
+                    
+                    // الزرار الدهبي اتنقل هنا تحت الكيبورد
+                    _buildVerifyButton(), 
+                    
                     const SizedBox(height: 10),
                     _buildWarning(),
                     const SizedBox(height: 10),
@@ -134,6 +141,9 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
+  // ============================================================
+  // BACK BUTTON
+  // ============================================================
   Widget _buildBackButton() {
     return Align(
       alignment: Alignment.centerLeft,
@@ -160,33 +170,33 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
+  // ============================================================
+  // DOOR ICON (Logo Image - بدون إطار)
+  // ============================================================
   Widget _buildDoorIcon() {
     return Center(
       child: Container(
-        width: 90, // رجعنا الحجم الكبير
-        height: 90,
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
+          color: _blackBg,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: _gold, width: 1.5),
-          boxShadow: [
-            BoxShadow(
-              color: _gold.withOpacity(0.2),
-              blurRadius: 15,
-              spreadRadius: 1,
-            ),
-          ],
+          // تم مسح الإطار والظل
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           child: Image.asset(
             'assets/images/logo.png',
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ),
         ),
       ),
     );
   }
 
+  // ============================================================
+  // TITLE + TIMER
+  // ============================================================
   Widget _buildTitle() {
     return Column(
       children: [
@@ -194,31 +204,31 @@ class _OtpPageState extends State<OtpPage> {
           'BLACK DOOR',
           style: TextStyle(
             color: _textWhite,
-            fontSize: 22, // رجعنا الخط
+            fontSize: 20,
             fontWeight: FontWeight.w900,
             letterSpacing: 1,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 6),
         Text(
           AppLang.t('Enter Security Code'),
           style: TextStyle(
             color: _textWhite,
-            fontSize: 14,
+            fontSize: 13,
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 3),
+        const SizedBox(height: 2),
         Text(
           '${AppLang.t('Code sent to')} ${AppLang.n('+973')}',
           style: TextStyle(color: _textGrey, fontSize: 10),
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 4),
         Text(
           AppLang.n('00:${seconds.toString().padLeft(2, '0')}'),
           style: TextStyle(
             color: _gold,
-            fontSize: 14,
+            fontSize: 13,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -234,13 +244,16 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
+  // ============================================================
+  // CODE BOXES
+  // ============================================================
   Widget _buildCodeBoxes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(6, (i) {
         return Container(
-          width: 42, // رجعنا المربعات
-          height: 46,
+          width: 40,
+          height: 44,
           margin: const EdgeInsets.symmetric(horizontal: 3),
           decoration: BoxDecoration(
             color: _cardBg,
@@ -262,15 +275,18 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
+  // ============================================================
+  // VERIFY BUTTON (تحت الكيبورد)
+  // ============================================================
   Widget _buildVerifyButton() {
     return SizedBox(
       width: double.infinity,
-      height: 50, // كبرنا الزرار شوية
+      height: 44,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: _gold,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         onPressed: _goToDis,
@@ -279,23 +295,26 @@ class _OtpPageState extends State<OtpPage> {
           style: TextStyle(
             color: _blackBg,
             fontWeight: FontWeight.bold,
-            fontSize: 14,
+            fontSize: 12,
           ),
         ),
       ),
     );
   }
 
+  // ============================================================
+  // KEYPAD 
+  // ============================================================
   Widget _buildKeypad() {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: _cardBg,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _gold.withOpacity(0.35), width: 1),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly, // توزيع متساوي
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _row(["1", "2", "3"]),
           _row(["4", "5", "6"]),
@@ -307,7 +326,7 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Widget _row(List<String> list) {
-    return Expanded( // تاخد مساحة متساوية
+    return Expanded(
       child: Row(
         children: list.map((e) {
           if (e == "clear") {
@@ -350,7 +369,8 @@ class _OtpPageState extends State<OtpPage> {
                     padding: EdgeInsets.zero,
                   ),
                   onPressed: _deleteOne,
-                  child: Icon(Icons.backspace_outlined, color: _textWhite, size: 20),
+                  child: Icon(Icons.backspace_outlined,
+                      color: _textWhite, size: 20),
                 ),
               ),
             );
@@ -384,6 +404,9 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
+  // ============================================================
+  // WARNING NOTE
+  // ============================================================
   Widget _buildWarning() {
     return Text(
       AppLang.t('Never share your code with anyone'),

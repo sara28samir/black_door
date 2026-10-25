@@ -14,7 +14,7 @@ import 'pages/11-new.dart';
 import 'pages/12-massg.dart';
 import 'pages/13-prvt.dart';
 import 'pages/14-sttng.dart';
-import 'pages/15-plus.dart';
+import 'pages/15-plus.dart'; 
 import 'pages/16-frnd.dart';
 
 void main() {
@@ -44,13 +44,17 @@ class MyApp extends StatelessWidget {
         '/two': (context) => const TwoPage(),
         '/story': (context) => const StoryPage(),
         '/call': (context) => const CallPage(),
-        '/prof': (context) => const ProfPage(),
+        '/prof': (context) => ProfilePage(), 
         '/new': (context) => const NewGroupPage(),
         '/massg': (context) => const MassgPage(),
         '/prvt': (context) => const PrvtPage(),
         '/sttng': (context) => const SttngPage(),
-        '/plus': (context) => const PlusPage(),
-        '/frnd': (context) => const FrndPage(),
+        
+        // استخدام SelectUserPage
+        '/plus': (context) => const SelectUserPage(), 
+        
+        // استخدام FriendsPage (عشان تطابق الاسم اللي في ملف 16)
+        '/frnd': (context) => const FriendsPage(), 
       },
     );
   }

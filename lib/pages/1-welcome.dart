@@ -3,7 +3,7 @@ import '2-phone.dart';
 import '../localization/lang.dart';
 
 // ============================================================
-// BLACK DOOR — Welcome Page (1-welcome.dart)
+// BLACK DOOR â€” Welcome Page (1-welcome.dart)
 // ============================================================
 
 class WelcomePage extends StatefulWidget {
@@ -23,6 +23,9 @@ class _WelcomePageState extends State<WelcomePage> {
 
   // -------- LANGUAGE --------
   String _currentLang = AppLang.currentLang;
+
+  // -------- GENDER SWITCH --------
+  bool _isFemale = true; 
 
   void _changeLang(String value) {
     setState(() {
@@ -60,10 +63,10 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Column(
                   children: [
                     _buildTopRow(),
-                    const SizedBox(height: 35),
+                    const SizedBox(height: 20), // تم تقليل المسافة عشان اللوجو يطلع فوق
                     _buildDoorCircle(),
-                    const SizedBox(height: 30),
-                    _buildTitle(),
+                    const SizedBox(height: 15), // تم تقليل المسافة عشان الكلام يطلع فوق
+                    _buildTitle(), 
                     const SizedBox(height: 25),
                     _buildFeatureBox(),
                     const SizedBox(height: 20),
@@ -87,37 +90,93 @@ class _WelcomePageState extends State<WelcomePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        _buildGenderSwitch(),
+        _buildLanguageDropdown(),
+      ],
+    );
+  }
+
+  // ============================================================
+  // GENDER SWITCH
+  // ============================================================
+  Widget _buildGenderSwitch() {
+    return Directionality(
+      textDirection: TextDirection.ltr, 
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _isFemale = !_isFemale;
+          });
+        },
+        child: Container(
+          width: 90,
+          height: 32,
+          padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
+            color: _blackBg,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: _gold.withOpacity(0.4)),
+            border: Border.all(color: _gold.withOpacity(0.6), width: 1.5),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
+            alignment: Alignment.center, 
             children: [
-              Container(
-                width: 6,
-                height: 6,
-                decoration: BoxDecoration(
-                  color: _gold,
-                  shape: BoxShape.circle,
-                ),
+              // الأيقونات في الخلفية
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center, 
+                children: [
+                  // Male Icon
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Icon(
+                      Icons.male,
+                      color: !_isFemale ? _gold : _gold.withOpacity(0.3),
+                      size: 18,
+                    ),
+                  ),
+                  // Female Icon
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      Icons.female,
+                      color: _isFemale ? _gold : _gold.withOpacity(0.3),
+                      size: 18,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 6),
-              Text(
-                AppLang.t('ENCRYPTED NETWORK'),
-                style: TextStyle(
-                  color: _gold,
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
+              // الزرار اللي بيتحرك
+              AnimatedAlign(
+                alignment: _isFemale ? Alignment.centerRight : Alignment.centerLeft,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                child: Container(
+                  width: 42,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    color: _gold,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _gold.withOpacity(0.3),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Icon(
+                      _isFemale ? Icons.female : Icons.male,
+                      color: _blackBg,
+                      size: 16,
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        _buildLanguageDropdown(),
-      ],
+      ),
     );
   }
 
@@ -135,7 +194,7 @@ class _WelcomePageState extends State<WelcomePage> {
       offset: const Offset(0, 40),
       itemBuilder: (context) => [
         _langMenuItem('en', 'English'),
-        _langMenuItem('ar', 'العربية'),
+        _langMenuItem('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'),
       ],
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -190,7 +249,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   // ============================================================
-  // DOOR LOGO (Square with Rounded Corners + Soft Glow)
+  // DOOR LOGO 
   // ============================================================
   Widget _buildDoorCircle() {
     return Center(
@@ -199,18 +258,9 @@ class _WelcomePageState extends State<WelcomePage> {
         height: 130,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: _gold, width: 1.5),
-          boxShadow: [
-            // Soft outer glow
-            BoxShadow(
-              color: _gold.withOpacity(0.2),
-              blurRadius: 25,
-              spreadRadius: 2,
-            ),
-          ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(30),
           child: Image.asset(
             'assets/images/logo.png',
             fit: BoxFit.cover,
@@ -221,7 +271,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   // ============================================================
-  // TITLE
+  // TITLE 
   // ============================================================
   Widget _buildTitle() {
     return Column(

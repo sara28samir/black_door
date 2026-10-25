@@ -3,7 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import '../localization/lang.dart';
 
 // ============================================================
-// BLACK DOOR — Chat Page (5-chat.dart)
+// BLACK DOOR â€” Chat Page (5-chat.dart)
 // ============================================================
 
 class ChatPage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _ChatPageState extends State<ChatPage> {
     {
       'name': 'Mia Patel',
       'username': '@miapatel',
-      'message': 'The file is ready 👍',
+      'message': 'The file is ready ðŸ‘�',
       'time': '15m',
       'unread': '7',
       'image': 'https://i.pravatar.cc/150?img=45',
@@ -60,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
     {
       'name': 'Sam Wilson',
       'username': '@samwilson',
-      'message': 'Read ✅ • 3h',
+      'message': 'Read âœ… â€¢ 3h',
       'time': '3h',
       'unread': '',
       'image': 'https://i.pravatar.cc/150?img=32',
@@ -161,7 +161,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   // ============================================================
-  // TOP BAR
+  // TOP BAR (Larger Black Door, Closer Circles)
   // ============================================================
   Widget _buildTopBar() {
     return Padding(
@@ -169,35 +169,90 @@ class _ChatPageState extends State<ChatPage> {
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'BLACK DOOR',
-              style: TextStyle(
-                color: Color(0xFFF5F5F5),
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 4,
+            // -------- BLACK DOOR (Wider) --------
+            Container(
+              height: 44,
+              width: 160, // âœ… ÙƒØ¨Ø±Ù†Ø§ Ø§Ù„Ø¹Ø±Ø¶ Ù‡Ù†Ø§ (Ù…Ù† 140 Ù„Ù€ 160)
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: _cardBg,
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(color: _gold, width: 1.2),
+              ),
+              child: const Text(
+                'BLACK DOOR',
+                style: TextStyle(
+                  color: Color(0xFFF5F5F5),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 2,
+                ),
               ),
             ),
-            const Spacer(),
-            IconButton(
-              onPressed: _openCamera,
-              icon: Icon(Icons.camera_alt_outlined, color: _gold, size: 24),
-            ),
-            PopupMenuButton<String>(
-              icon: Icon(Icons.more_vert, color: _gold, size: 24),
-              color: _cardBg,
-              onSelected: (value) {
-                if (value == 'new') _goTo('/new');
-                if (value == 'mass') _goTo('/massg');
-                if (value == 'prvt') _goTo('/prvt');
-                if (value == 'settings') _goTo('/sttng');
-              },
-              itemBuilder: (context) => [
-                _popupItem('new', AppLang.t('New Group')),
-                _popupItem('mass', AppLang.t('Mass Messages')),
-                _popupItem('prvt', AppLang.t('Favorites')),
-                _popupItem('settings', AppLang.t('Settings')),
+            // -------- Invite, Camera & Dots (Closer together) --------
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 1. Gift Box Circle (تم التعديل)
+                GestureDetector(
+                  onTap: () => _goTo('/frnd'),
+                  child: Container(
+                    height: 44,
+                    width: 44,
+                    decoration: BoxDecoration(
+                      color: _cardBg,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: _gold, width: 1.2),
+                    ),
+                    child: Icon(Icons.card_giftcard, color: _gold, size: 20),
+                  ),
+                ),
+                const SizedBox(width: 4), // âœ… Ù‚Ù„Ù„Ù†Ø§ Ø§Ù„Ù…Ø³Ø§Ù�Ø© Ù‡Ù†Ø§ (Ù…Ù† 6 Ù„Ù€ 4)
+                // 2. Camera Circle
+                Container(
+                  height: 44,
+                  width: 44,
+                  decoration: BoxDecoration(
+                    color: _cardBg,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: _gold, width: 1.2),
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: _openCamera,
+                    icon: Icon(Icons.camera_alt_outlined, color: _gold, size: 20),
+                  ),
+                ),
+                const SizedBox(width: 4), // âœ… Ù‚Ù„Ù„Ù†Ø§ Ø§Ù„Ù…Ø³Ø§Ù�Ø© Ù‡Ù†Ø§ (Ù…Ù† 6 Ù„Ù€ 4)
+                // 3. 3 Dots Circle
+                Container(
+                  height: 44,
+                  width: 44,
+                  decoration: BoxDecoration(
+                    color: _cardBg,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: _gold, width: 1.2),
+                  ),
+                  child: PopupMenuButton<String>(
+                    padding: EdgeInsets.zero,
+                    icon: Icon(Icons.more_vert, color: _gold, size: 20),
+                    color: _cardBg,
+                    onSelected: (value) {
+                      if (value == 'new') _goTo('/new');
+                      if (value == 'mass') _goTo('/massg');
+                      if (value == 'prvt') _goTo('/prvt');
+                      if (value == 'settings') _goTo('/sttng');
+                    },
+                    itemBuilder: (context) => [
+                      _popupItem('new', AppLang.t('New Group')),
+                      _popupItem('mass', AppLang.t('Mass Messages')),
+                      _popupItem('prvt', AppLang.t('Favorites')),
+                      _popupItem('settings', AppLang.t('Settings')),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
@@ -388,7 +443,6 @@ class _ChatPageState extends State<ChatPage> {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            // -------- AVATAR --------
             Container(
               width: 56,
               height: 56,
@@ -409,13 +463,10 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
             const SizedBox(width: 14),
-
-            // -------- NAME / USERNAME / MESSAGE --------
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Row: Name (left) + Time (right)
                   Row(
                     children: [
                       Expanded(
@@ -435,7 +486,6 @@ class _ChatPageState extends State<ChatPage> {
                     ],
                   ),
                   const SizedBox(height: 3),
-                  // Row: Username (left) + Unread badge (right)
                   Row(
                     children: [
                       Expanded(
@@ -463,7 +513,7 @@ class _ChatPageState extends State<ChatPage> {
                             child: Text(
                               AppLang.n(unread),
                               style: TextStyle(
-                                color: _blackBg,
+                                color: _textWhite, // تم التعديل: اللون أبيض
                                 fontSize: 9,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -504,18 +554,16 @@ class _ChatPageState extends State<ChatPage> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Chat bubble icon 💭
             Icon(
               Icons.chat_bubble_rounded,
-              color: _textWhite,
+              color: _blackBg, // اللون أسود
               size: 28,
             ),
-            // Gold + inside
             Padding(
               padding: const EdgeInsets.only(bottom: 3),
               child: Icon(
                 Icons.add,
-                color: _gold,
+                color: _gold, // تم التعديل: اللون دهبي
                 size: 15,
               ),
             ),
